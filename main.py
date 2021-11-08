@@ -25,28 +25,65 @@ class SlotMachine:
         self.words = ["Cherry", "Plum", "Lemon", "Grapes"]
 
     def spin(self):
-        rand1 = random.randint(0, 3)
-        rand2 = random.randint(0, 3)
-        rand3 = random.randint(0, 3)
+        line1 = []
+        line2 = []
+        line3 = []
+        for j in range(3):
+            rand = random.randint(0, 3)
+            line1.append(rand)
+            rand = random.randint(0, 3)
+            line2.append(rand)
+            rand = random.randint(0, 3)
+            line3.append(rand)
 
-        word1 = self.words[rand1]
-        word2 = self.words[rand2]
-        word3 = self.words[rand3]
+        words1 = []
+        words2 = []
+        words3 = []
+        for j in range(3):
+            words1.append(self.words[line1[j]])
+            words2.append(self.words[line2[j]])
+            words3.append(self.words[line3[j]])
 
-        print(word1, " ", word2, " ", word3)
-        if rand1 == rand2 == rand3:
-            if rand1 == 0:
-                win = 10
-            elif rand1 == 1:
-                win = 20
-            elif rand1 == 2:
-                win = 30
+        # print(word1, " ", word2, " ", word3)
+        print(words1[0], " ", words1[1], " ", words1[2])
+        print(words2[0], " ", words2[1], " ", words2[2])
+        print(words3[0], " ", words3[1], " ", words3[2])
+
+        win1 = 0
+        win2 = 0
+        win3 = 0
+
+        if line1[0] == line1[1] == line1[2]:
+            if line1[0] == 0:
+                win1 = 10
+            elif line1[0] == 1:
+                win1 = 20
+            elif line1[0] == 2:
+                win1 = 30
             else:
-                win = 40
-        else:
-            win = 0
+                win1 = 40
 
-        return win
+        if line2[0] == line2[1] == line2[2]:
+            if line2[0] == 0:
+                win2 = 10
+            elif line2[0] == 1:
+                win2 = 20
+            elif line2[0] == 2:
+                win2 = 30
+            else:
+                win2 = 40
+
+        if line3[0] == line3[1] == line3[2]:
+            if line3[0] == 0:
+                win3 = 10
+            elif line3[0] == 1:
+                win3 = 20
+            elif line3[0] == 2:
+                win3 = 30
+            else:
+                win3 = 40
+
+        return win1 + win2 + win3
 
 
 def band_rtp(band):
@@ -85,7 +122,7 @@ class Weights:
         for i in self.band:
             if abs(i.get('earn') / i.get('totalBet') - 0.95) >= 0.01:
                 i.update(weight=0)
-                c += 1
+                # c += 1
             else:
                 i.update(weight=1)
 
@@ -94,12 +131,13 @@ def first_task():
     start_slot()
     slot = SlotMachine()
 
-    choice = "y"
-    while choice.lower() == "y":
-        choice = input("Press Enter to spin:  ")
+    replay = 'y'
+    while replay.lower() == 'y':
+        input("Press Enter to spin:  ")
         print()
         calculate = slot.spin()
         print("You have won $" + str(calculate))
+        replay = input("Play again?(Y/N)  ")
 
 
 def second_task():
@@ -112,8 +150,8 @@ def second_task():
 
 
 def main():
-    # first_task()
-    second_task()
+    first_task()
+    # second_task()
 
 
 if __name__ == "__main__":
